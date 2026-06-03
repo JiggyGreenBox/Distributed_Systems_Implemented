@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # Our FastAPI application
+  web_app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis_cache
+      - DATABASE_URL=postgresql://postgres:password@postgres_db:5432/postgres
+    depends_on:
+      - redis_cache
+      - postgres_db
+
+  # Redis Instance
+  redis_cache:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  # Postgres Instance
+  postgres_db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password

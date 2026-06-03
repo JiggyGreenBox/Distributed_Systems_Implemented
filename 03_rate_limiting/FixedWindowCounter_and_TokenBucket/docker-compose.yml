@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  nginx_lb:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - rate_limiter_1
+      - rate_limiter_2
+      - rate_limiter_3
+
+  rate_limiter_1:
+    build: .
+    environment:
+      - REDIS_HOST=redis_state
+  
+  rate_limiter_2:
+    build: .
+    environment:
+      - REDIS_HOST=redis_state
+
+  rate_limiter_3:
+    build: .
+    environment:
+      - REDIS_HOST=redis_state
+
+  redis_state:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
