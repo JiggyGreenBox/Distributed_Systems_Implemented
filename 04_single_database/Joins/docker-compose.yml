@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres_joins:
+    image: postgres:16-alpine
+    container_name: postgres_joins
+    environment:
+      - POSTGRES_USER=join_user
+      - POSTGRES_PASSWORD=join_password
+      - POSTGRES_DB=join_mechanics_db
+    ports:
+      - "5433:5432"  # Shifting port to 5433 to avoid conflicts with Week 2
+    volumes:
+      - join_data:/var/lib/postgresql/data
+
+  pgadmin_joins:
+    image: dpage/pgadmin4
+    container_name: pgadmin_joins
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@join.com
+      - PGADMIN_DEFAULT_PASSWORD=admin_password
+    ports:
+      - "5051:80"   # Shifting port to 5051
+    depends_on:
+      - postgres_joins
+
+volumes:
+  join_data:

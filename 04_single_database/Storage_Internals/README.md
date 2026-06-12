@@ -2,22 +2,20 @@
  - this is a basic fastapi webserver that returns the health of a connected postgres and redis instance
 ### commands
 ```sh
-docker compose up --build
+# docker compose up --build
 docker compose up -d
+```
 
+```text
+pgadmin-login
 http://localhost:5050
-```
-```sh
-curl http://localhost:8000/health
 
-{
-  "status": "healthy",
-  "dependencies": {
-    "redis": "CONNECTED",
-    "postgres": "CONNECTED"
-  }
-}
+EMAIL = 
+  admin@sandbox.com
+PASSWORD = 
+  admin_password
 ```
+
 
 ```text
 Right-click Servers -> Register ->  Server.

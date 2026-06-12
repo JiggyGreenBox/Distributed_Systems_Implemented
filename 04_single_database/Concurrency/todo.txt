@@ -1,0 +1,21 @@
+HOT updates
+
+deadlocks/
+serializable/
+pg_locks/
+
+
+How does PostgreSQL survive a crash?
+    WAL
+    LSN
+    Checkpoints
+    Crash Recovery
+    Replication
+
+
+Statistics
+
+
+Replication
+Read Replicas
+Failover

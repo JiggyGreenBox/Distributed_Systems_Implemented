@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres_concurrency:
+    image: postgres:16-alpine
+    container_name: postgres_concurrency
+    environment:
+      - POSTGRES_USER=tx_user
+      - POSTGRES_PASSWORD=tx_password
+      - POSTGRES_DB=concurrency_safari_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - concurrency_data:/var/lib/postgresql/data
+
+  pgadmin_concurrency:
+    image: dpage/pgadmin4
+    container_name: pgadmin_concurrency
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@concurrency.com
+      - PGADMIN_DEFAULT_PASSWORD=admin_password
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres_concurrency
+
+volumes:
+  concurrency_data:
