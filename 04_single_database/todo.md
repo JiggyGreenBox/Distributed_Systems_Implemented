@@ -81,3 +81,14 @@ This is the final frontier where you learn how companies scale when a database b
 I highly recommend starting at **Phase 1**. Let's add PostgreSQL to your existing Docker stack so you can see it running right alongside your rate-limiter and Redis.
 
 Would you like the updated `docker-compose.yml` configuration and the basic Python code to establish a resilient Postgres connection pool from your backend replicas?
+
+```text
+Remaining:
+□ WAL
+□ Checkpoints
+□ Crash Recovery
+□ Replication
+□ Query Planner Statistics
+□ Hash Join / Merge Join internals
+□ Serializable Isolation
+```

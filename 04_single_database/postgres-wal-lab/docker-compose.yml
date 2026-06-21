@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres_durability:
+    image: postgres:16-alpine
+    container_name: postgres_durability
+    environment:
+      - POSTGRES_USER=tx_user
+      - POSTGRES_PASSWORD=tx_password
+      - POSTGRES_DB=durability_safari_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - durability_data:/var/lib/postgresql/data
+
+  pgadmin_durability:
+    image: dpage/pgadmin4
+    container_name: pgadmin_durability
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@durability.com
+      - PGADMIN_DEFAULT_PASSWORD=admin_password
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres_durability
+
+volumes:
+  durability_data:
