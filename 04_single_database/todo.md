@@ -92,3 +92,8 @@ Remaining:
 □ Hash Join / Merge Join internals
 □ Serializable Isolation
 ```
+```text
+synchronous replication
+replication slots + WAL retention
+failover/promotion
+```

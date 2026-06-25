@@ -1,0 +1,60 @@
+services:
+  postgres_primary:
+    image: postgres:16-alpine
+    container_name: postgres_primary
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: replication_lab
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - primary_data:/var/lib/postgresql/data
+      - ./primary/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    command:
+      - postgres
+      - -c
+      - wal_level=replica
+      - -c
+      - max_wal_senders=10
+      - -c
+      - max_replication_slots=10
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_replication
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@replication.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+
+    ports:
+      - "5050:80"
+
+    depends_on:
+      - postgres_primary
+
+  postgres_replica:
+    image: postgres:16-alpine
+    container_name: postgres_replica
+
+    ports:
+      - "5436:5432"
+
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+    volumes:
+      - replica_data:/var/lib/postgresql/data
+
+    depends_on:
+      - postgres_primary
+  
+
+volumes:
+  primary_data:
+  replica_data:
